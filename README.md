@@ -22,11 +22,11 @@ The RDU framework is built on a few foundational concepts:
 
 **1. The Resonant Dark Universe: A Developing Unified Cosmological Model**
 * This is the comprehensive manuscript detailing the full RDU framework, from the foundational philosophy to the derivation of Standard Model particle masses.
-* [Link to Zenodo Preprint (DOI: 10.5281/zenodo.16809417)](https://doi.org/10.5281/zenodo.16809417)
+* [Link to Zenodo Preprint (DOI: 10.5281/zenodo.16849350)](https://doi.org/10.5281/zenodo.16849350)
 
 **2. Parameter Space Model for Frustrated Dark Resonator Cores**
 * This short paper introduces a new, testable prediction of the RDU theory—a new class of objects called "Frustrated DRCs"—which provides a compelling explanation for anomalous, ultra-bright radio sources.
-* [Link to Zenodo Preprint](https://zenodo.org/records/1755133558598) *(Note: You can update this with the specific DOI for this paper once available)*
+* [Link to Zenodo Preprint (DOI: 10.5281/zenodo.16809417)](https://doi.org/10.5281/zenodo.16809417)
 
 **3. The Chronos Field: A Unified Scalar Field for Inflation and Late-Time Cosmic Acceleration**
 * A focused paper prepared for submission to a peer-reviewed journal (JCAP). This work details the cosmological success of the Chronos Field, demonstrating how its dynamics correctly reproduce key observational data (CMB, etc.).
@@ -36,6 +36,6 @@ The RDU framework is built on a few foundational concepts:
 
 Joshua Knoechelman is an independent researcher focused on developing a complete, first-principles model of cosmology and particle physics.
 
-* **Email:** [Sirvapors@gmail.com](mailto:Sirvapors@gmail.com)
+* **Email:** [Srvapors@gmail.com](mailto:Srvapors@gmail.com)
 * **ORCID:** [0009-0002-1654-8161](https://orcid.org/0009-0002-1654-8161)
 * **Zenodo Profile:** [View Publications](https://zenodo.org/search?q=Knoechelman%2C%20Joshua)
