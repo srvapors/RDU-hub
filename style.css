@@ -17,3 +17,36 @@ h1, h2 {
     border-bottom: 2px solid #4ec9b0; /* Use a key color from our simulations */
     padding-bottom: 10px;
 }
+
+/* Navigation Bar Styles */
+nav {
+    background-color: #1a182a;
+    border-bottom: 1px solid #4ec9b0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li a {
+    display: block;
+    color: #e0e0e0;
+    text-decoration: none;
+    padding: 15px 25px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #4ec9b0;
+    color: #0c0a1a;
+}
+
+nav ul li a.active {
+    background-color: #2a283a;
+    font-weight: bold;
+}
