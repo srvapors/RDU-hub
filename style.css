@@ -1,28 +1,21 @@
-/* To add a background image later:
-1. Upload your image to the 'images' folder.
-2. Remove the /* and */ from the code below.
-3. Replace 'blackhole01d.jpeg' with the actual filename.
-
-
 body {
-    background-image: url('images/your-background-image.jpg');
+    /* Background Image */
+    background-image: url('images/Blackhole01d.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-}
-*/
 
-body {
-    background-color: #0c0a1a; /* Very dark space blue */
-    color: #e0e0e0; /* Off-white text */
-    font-family: 'Roboto', sans-serif; /* New body font */
+    /* Fallback color and text styles */
+    background-color: #0c0a1a; /* This shows while the image loads */
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 h1, h2 {
-    font-family: 'Orbitron', sans-serif; /* New sci-fi title font */
+    font-family: 'Orbitron', sans-serif;
     color: #ffffff;
     border-bottom: 2px solid #4ec9b0;
     padding-bottom: 10px;
@@ -32,7 +25,7 @@ main, footer {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(12, 10, 26, 0.8); /* Add a semi-transparent dark background to make text readable over a background image */
+    background-color: rgba(12, 10, 26, 0.9); /* Semi-transparent background for text */
     border-radius: 8px;
 }
 
@@ -43,7 +36,7 @@ main, footer {
 }
 
 .hero h1 {
-    border-bottom: none; /* Remove double border */
+    border-bottom: none;
     font-size: 2.5em;
     margin: 0;
 }
@@ -61,6 +54,29 @@ nav {
 
 nav ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 25px;
+    transition: background-color 0.3s;
+    font-family: 'Roboto', sans-serif;
+}
+
+nav ul li a:hover {
+    background-color: #4ec9b0;
+    color: #0c0a1a;
+}
+
+nav ul li a.active {
+    background-color: #2a283a;
+    font-weight: bold;
+}
     margin: 0;
     padding: 0;
     display: flex;
