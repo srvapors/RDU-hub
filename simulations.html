@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RDU - Simulations</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
+<header>
+    <a href="index.html" class="site-title">
+        The Resonant Dark Universe (RDU)
+    </a>
+    <nav id="main-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="theory.html">The Theory</a></li>
+            <li><a href="genesis.html">Particle Genesis</a></li>
+            <li><a href="simulations.html">Simulations</a></li>
+            <li><a href="publications.html">Publications</a></li>
+        </ul>
+    </nav>
+    <button id="menu-button" class="menu-toggle">
+        &#9776; </button>
+</header>
+
 <body>
 
     <nav>
@@ -57,6 +65,16 @@
     <footer>
         <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
     </footer>
+
+<script>
+    const menuButton = document.getElementById('menu-button');
+    const mainNav = document.getElementById('main-nav');
+
+    menuButton.addEventListener('click', () => {
+        mainNav.classList.toggle('open');
+    });
+</script>
+
 
 </body>
 </html>
