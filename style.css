@@ -29,27 +29,25 @@ main, footer {
     border-radius: 8px;
 }
 
-/* Hero Section Styles */
-.hero {
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.hero h1 {
-    border-bottom: none;
-    font-size: 2.5em;
-    margin: 0;
-}
-
-/* Navigation Bar Styles */
-nav {
+/* New Header & Navigation Styles */
+header {
     background-color: #1a182a;
     border-bottom: 1px solid #4ec9b0;
+    padding: 10px 40px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.site-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 nav ul {
@@ -63,9 +61,10 @@ nav ul li a {
     display: block;
     color: #ffffff;
     text-decoration: none;
-    padding: 15px 25px;
-    transition: background-color 0.3s;
+    padding: 15px 20px;
+    transition: background-color 0.3s, color 0.3s;
     font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
 }
 
 nav ul li a:hover {
@@ -74,32 +73,11 @@ nav ul li a:hover {
 }
 
 nav ul li a.active {
-    background-color: #2a283a;
-    font-weight: bold;
-}
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav ul li a {
-    display: block;
-    color: #e0e0e0;
-    text-decoration: none;
-    padding: 15px 25px;
-    transition: background-color 0.3s;
-    font-family: 'Roboto', sans-serif; /* Match body font */
-}
-
-nav ul li a:hover {
     background-color: #4ec9b0;
     color: #0c0a1a;
-}
-
-nav ul li a.active {
-    background-color: #2a283a;
     font-weight: bold;
 }
+
 
 /* Gallery Styles */
 .gallery-container {
