@@ -1,13 +1,11 @@
+/* General Body & Typography */
 body {
-    /* Background Image */
     background-image: url('images/Blackhole01d.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-
-    /* Fallback color and text styles */
-    background-color: #0c0a1a; /* This shows while the image loads */
+    background-color: #0c0a1a; /* Fallback color */
     color: #ffffff;
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -25,13 +23,28 @@ main, footer {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(12, 10, 26, 0.9); /* Semi-transparent background for text */
+    background-color: rgba(12, 10, 26, 0.9);
     border-radius: 8px;
 }
 
-/* New Header & Navigation Styles */
+main p {
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+main ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+main ul li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Header & Responsive Navigation Styles */
 header {
-    background-color: #1a182a;
+    background-color: rgba(26, 24, 42, 0.9);
     border-bottom: 1px solid #4ec9b0;
     padding: 10px 40px;
     display: flex;
@@ -40,6 +53,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(5px);
 }
 
 .site-title {
@@ -78,8 +92,54 @@ nav ul li a.active {
     font-weight: bold;
 }
 
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 2px solid #4ec9b0;
+    color: #4ec9b0;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
-/* Gallery Styles */
+/* Media Query for Mobile Devices */
+@media (max-width: 850px) {
+    .site-title {
+        font-size: 1.2em;
+    }
+    header {
+        padding: 10px 20px;
+    }
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 67px;
+        right: 0;
+        width: 100%;
+        background-color: rgba(26, 24, 42, 0.95);
+        flex-direction: column;
+        text-align: center;
+        backdrop-filter: blur(5px);
+    }
+    nav.open ul {
+        display: flex;
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Theory Page Styles */
+main h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #4ec9b0;
+    border-bottom: none;
+    font-size: 1.4em;
+    margin-top: 40px;
+}
+
+/* Gallery Styles (Simulations Page) */
 .gallery-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -105,43 +165,42 @@ nav ul li a.active {
 .gallery-item h3 {
     border-bottom: none;
     margin-top: 0;
+    color: #ffffff;
 }
 
-/* Theory Page Styles */
-main h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: #4ec9b0;
-    border-bottom: none;
-    font-size: 1.4em;
+/* Table Styles (Genesis Page) */
+table {
+    width: 100%;
     margin-top: 40px;
+    border-collapse: collapse;
+    font-size: 0.9em;
 }
 
-main p {
-    line-height: 1.6;
-    margin-bottom: 1em;
+table caption {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #4ec9b0;
 }
 
-main ul {
-    list-style-type: square;
-    padding-left: 20px;
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #2a283a;
+    text-align: left;
 }
 
-main ul li {
-    margin-bottom: 10px;
-    line-height: 1.6;
+table thead th {
+    background-color: #1a182a;
+    font-family: 'Orbitron', sans-serif;
 }
 
+table tbody tr:nth-child(even) {
+    background-color: #110e24;
+}
 
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="theory.html">The Theory</a></li>
-        <li><a href="genesis.html">Particle Genesis</a></li>
-        <li><a href="simulations.html">Simulations</a></li>
-        <li><a href="#">Publications</a></li>
-    </ul>
-</nav>
-
+table tbody tr:hover {
+    background-color: #2a283a;
+}
 
 /* Publication Page Styles */
 .publication-item {
