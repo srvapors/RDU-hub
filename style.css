@@ -163,3 +163,36 @@ main ul li {
         <li><a href="#">Publications</a></li>
     </ul>
 </nav>
+
+
+/* Publication Page Styles */
+.publication-item {
+    background-color: #1a182a;
+    border: 1px solid #2a283a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.publication-item h3 {
+    margin-top: 0;
+    border-bottom: none;
+    color: #ffffff;
+}
+
+.publication-item .citation {
+    font-style: italic;
+    color: #a0a0a0;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.publication-item a {
+    color: #4ec9b0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.publication-item a:hover {
+    text-decoration: underline;
+}
