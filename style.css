@@ -152,3 +152,14 @@ main ul li {
     margin-bottom: 10px;
     line-height: 1.6;
 }
+
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="theory.html">The Theory</a></li>
+        <li><a href="genesis.html">Particle Genesis</a></li>
+        <li><a href="simulations.html">Simulations</a></li>
+        <li><a href="#">Publications</a></li>
+    </ul>
+</nav>
