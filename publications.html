@@ -1,36 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<header>
-    <a href="index.html" class="site-title">
-        The Resonant Dark Universe (RDU)
-    </a>
-    <nav id="main-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="theory.html">The Theory</a></li>
-            <li><a href="genesis.html">Particle Genesis</a></li>
-            <li><a href="simulations.html">Simulations</a></li>
-            <li><a href="publications.html">Publications</a></li>
-        </ul>
-    </nav>
-    <button id="menu-button" class="menu-toggle">
-        &#9776; </button>
-</header>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDU - Publications</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="theory.html">The Theory</a></li>
-            <li><a href="genesis.html">Particle Genesis</a></li>
-            <li><a href="simulations.html">Simulations</a></li>
-            <li><a href="publications.html" class="active">Publications</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero">
-        <h1>Publications & Research</h1>
+    <header>
+        <a href="index.html" class="site-title">
+            The Resonant Dark Universe (RDU)
+        </a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="theory.html">The Theory</a></li>
+                <li><a href="genesis.html">Particle Genesis</a></li>
+                <li><a href="simulations.html">Simulations</a></li>
+                <li><a href="publications.html" class="active">Publications</a></li>
+            </ul>
+        </nav>
+        <button id="menu-button" class="menu-toggle">
+            &#9776; </button>
     </header>
 
     <main>
@@ -39,7 +34,7 @@
 
         <div class="publication-item">
             <h3>The Resonant Dark Universe: A Developing Unified Cosmological Model</h3>
-            <p class="citation">Knoechelman, J. (August 13, 2025)</p>
+            <p class="citation">Knoechelman, J.</p>
             <p>The foundational paper introducing the RDU framework, the "no-time" philosophy, the Chronos Field, and the derivation of the Standard Model as field excitations.</p>
             <p><a href="https://doi.org/10.5281/zenodo.15997623" target="_blank">View on Zenodo</a></p>
         </div>
@@ -73,7 +68,7 @@
         </div>
         
         <div class="publication-item">
-            <h3>Parameter Space Model for Frustrated Dark Resonator Cores: An Extension of the Resonant Dark Universe Theory</h3>
+            <h3>Parameter Space Model for Frustrated Dark Resonant Cores: An Extension of the Resonant Dark Universe Theory</h3>
             <p class="citation">Knoechelman, J.</p>
             <p>An extension to the RDU model introducing a new class of compact objects, Frustrated DRCs, and predicting their observational signatures as ultra-bright, millimeter-wave radio sources.</p>
             <p><a href="https://doi.org/10.5281/zenodo.16867505" target="_blank">View on Zenodo</a></p>
@@ -89,15 +84,13 @@
         <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
     </footer>
 
-<script>
-    const menuButton = document.getElementById('menu-button');
-    const mainNav = document.getElementById('main-nav');
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
 
-    menuButton.addEventListener('click', () => {
-        mainNav.classList.toggle('open');
-    });
-</script>
-
-
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
