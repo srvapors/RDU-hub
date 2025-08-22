@@ -233,3 +233,10 @@ table tbody tr:hover {
 .publication-item a:hover {
     text-decoration: underline;
 }
+
+/* Style for inline custom symbols */
+.inline-symbol {
+    height: 1em; /* Makes the image the same height as the text */
+    vertical-align: -0.15em; /* Adjusts vertical alignment to sit nicely on the line */
+    margin: 0 0.1em; /* Gives it a little space */
+}
