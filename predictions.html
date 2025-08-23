@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDU - Falsifiable Predictions</title>
+    <meta name="description" content="Explore the unique, testable, and falsifiable predictions of the Resonant Dark Universe (RDU), from dynamic dark energy to the Gravitational Lattice.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="site-title">
+            The Resonant Dark Universe (RDU)
+        </a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="theory.html">The Theory</a></li>
+                <li><a href="genesis.html">Particle Genesis</a></li>
+                <li><a href="simulations.html">Simulations</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="blog/blog.html">Blog</a></li>
+                <li><a href="predictions.html" class="active">Predictions</a></li>
+            </ul>
+        </nav>
+        <button id="menu-button" class="menu-toggle">
+            &#9776; </button>
+    </header>
+
+    <main>
+        <h2>Falsifiable Predictions</h2>
+        <p>A core strength of the Resonant Dark Universe is that it makes several unique, testable predictions that differ from the standard ΛCDM model. These predictions provide clear, observational pathways to validate or falsify the theory.</p>
+
+        <div class="prediction-item">
+            <h3>Dynamic Dark Energy</h3>
+            <p>The RDU posits that dark energy is a dynamic field, not a cosmological constant. It therefore predicts a specific, evolving equation of state with values of <strong>w₀ ≈ -0.998</strong> and <strong>wₐ ≈ +0.013</strong>.</p>
+            <p><strong>The Test:</strong> This can be confirmed or refuted by next-generation cosmological surveys (like the Euclid and Roman space telescopes) designed to measure the expansion history of the universe with unprecedented precision.</p>
+        </div>
+
+        <div class="prediction-item">
+            <h3>The Condensate Chirp</h3>
+            <p>The merger of supermassive Dark Resonator Cores (black holes) may allow a small amount of trapped Aumonic matter to escape. This event would produce a distinct, secondary gravitational wave signal—a "chirp" with unique characteristics—superimposed on the primary merger wave.</p>
+            <p><strong>The Test:</strong> Searching for this secondary signal in the data from future gravitational wave observatories like LISA.</p>
+        </div>
+
+        <div class="prediction-item">
+            <h3>Frustrated Dark Resonator Cores</h3>
+            <p>The RDU allows for a new class of compact objects where the Knoechelman Mechanism stalls, causing them to vent immense energy as intense, millimeter-wave synchrotron radiation instead of producing Aumons.</p>
+            <p><strong>The Test:</strong> Searching large-area radio surveys for a population of ultra-bright, radio-only sources that have no optical or X-ray counterparts.</p>
+        </div>
+
+        <div class="prediction-item">
+            <h3>The Gravitational Lattice</h3>
+            <p>The RDU predicts a persistent, structured gravitational wave background formed from the interference patterns of primordial ripples in the Chronos Field. This pattern acts as a cosmic "scaffold," seeding the formation of large-scale structures and galaxies much earlier than in the standard model.</p>
+            <p><strong>The Test:</strong> Detecting a unique, non-random pattern (anisotropy) in the stochastic gravitational wave background or continued observation of unexpectedly early galaxy formation by telescopes like JWST.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
