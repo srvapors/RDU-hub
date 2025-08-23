@@ -25,7 +25,9 @@ main, footer {
     padding: 20px;
     background-color: rgba(12, 10, 26, 0.9);
     border-radius: 8px;
+    text-align: center; /* This is the new line */
 }
+
 
 main p {
     line-height: 1.6;
@@ -239,4 +241,11 @@ table tbody tr:hover {
     height: 1em; /* Makes the image the same height as the text */
     vertical-align: -0.15em; /* Adjusts vertical alignment to sit nicely on the line */
     margin: 0 0.1em; /* Gives it a little space */
+}
+
+/* Collaboration Notice in Footer */
+.collaboration-notice {
+    font-size: 0.8em;
+    color: #a0a0a0; /* Lighter grey */
+    margin-top: 15px;
 }
