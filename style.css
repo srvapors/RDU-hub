@@ -249,3 +249,18 @@ table tbody tr:hover {
     color: #a0a0a0; /* Lighter grey */
     margin-top: 15px;
 }
+
+/* Prediction Page Styles */
+.prediction-item {
+    background-color: #1a182a;
+    border: 1px solid #2a283a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.prediction-item h3 {
+    margin-top: 0;
+    border-bottom: none;
+    color: #ffffff;
+}
