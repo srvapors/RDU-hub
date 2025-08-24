@@ -13,24 +13,7 @@
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="site-title">
-            The Resonant Dark Universe (RDU)
-        </a>
-        <nav id="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="theory.html">The Theory</a></li>
-                <li><a href="genesis.html">Particle Genesis</a></li>
-                <li><a href="simulations.html">Simulations</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="blog/blog.html">Blog</a></li>
-                <li><a href="predictions.html" class="active">Predictions</a></li>
-            </ul>
-        </nav>
-        <button id="menu-button" class="menu-toggle">
-            &#9776; </button>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main>
         <h2>Falsifiable Predictions</h2>
@@ -61,16 +44,8 @@
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script>
-        const menuButton = document.getElementById('menu-button');
-        const mainNav = document.getElementById('main-nav');
-        menuButton.addEventListener('click', () => {
-            mainNav.classList.toggle('open');
-        });
-    </script>
+    <script src="/RDU-hub/main.js"></script>
 </body>
 </html>
