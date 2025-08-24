@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const currentPage = window.location.pathname;
 
     // --- Fetch and inject the header ---
-    fetch('/RDU-hub/header.html')
+    fetch('/RDU-hub/_header.html')
         .then(response => response.ok ? response.text() : Promise.reject('Header not found'))
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error('Error fetching header:', error));
 
     // --- Fetch and inject the footer ---
-    fetch('/RDU-hub/footer.html')
+    fetch('/RDU-hub/_footer.html')
         .then(response => response.ok ? response.text() : Promise.reject('Footer not found'))
         .then(data => {
             document.getElementById('footer-placeholder').innerHTML = data;
