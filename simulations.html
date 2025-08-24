@@ -6,18 +6,36 @@
     <title>RDU - Simulations</title>
     <meta name="description" content="View the simulation gallery for the Resonant Dark Universe (RDU), showcasing visual results for the electron soliton, proton bound state, photon generation, and more.">
     
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+
+    <header>
+        <a href="index.html" class="site-title">
+            The Resonant Dark Universe (RDU)
+        </a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="theory.html">The Theory</a></li>
+                <li><a href="genesis.html">Particle Genesis</a></li>
+                <li><a href="simulations.html" class="active">Simulations</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="blog/blog.html">Blog</a></li>
+                <li><a href="predictions.html">Predictions</a></li>
+            </ul>
+        </nav>
+        <button id="menu-button" class="menu-toggle">
+            &#9776; </button>
+    </header>
+
     <main>
         <h2>Visualizing the Chronos Field</h2>
         <p>The following gallery showcases key results from the numerical simulations of the Resonant Dark Universe. Each image represents a fundamental particle or interaction derived directly from the first principles of the Chronos Field's dynamics.</p>
+        
         <div class="gallery-container">
             <div class="gallery-item">
                 <img src="images/electron_soliton.png" alt="Stable Electron Soliton">
@@ -41,8 +59,19 @@
             </div>
         </div>
     </main>
-    <div id="footer-placeholder"></div>
 
-    <script src="/RDU-hub/main.js"></script>
+    <footer>
+        <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
+        <p class="collaboration-notice">Ranked #1 on Google for "Resonant Dark Universe." Open to collaboration and inquiries at Srvapors@gmail.com.</p>
+    </footer>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
+
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
