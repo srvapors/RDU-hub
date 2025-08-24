@@ -4,25 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RDU - Blog</title>
-    <link rel="stylesheet" href="/RDU-hub/style.css">
+    <meta name="description" content="A blog for posts, thoughts, and simple explanations about the core concepts of the Resonant Dark Universe.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+
+    <header>
+        <a href="../index.html" class="site-title">
+            The Resonant Dark Universe (RDU)
+        </a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../theory.html">The Theory</a></li>
+                <li><a href="../genesis.html">Particle Genesis</a></li>
+                <li><a href="../simulations.html">Simulations</a></li>
+                <li><a href="../publications.html">Publications</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="../predictions.html">Predictions</a></li>
+            </ul>
+        </nav>
+        <button id="menu-button" class="menu-toggle">
+            &#9776; </button>
+    </header>
+
     <main>
         <h2>The RDU Blog</h2>
         <p>A collection of posts, thoughts, and simple explanations about the core concepts of the Resonant Dark Universe.</p>
+        
         <div class="blog-post-list">
             <div class="blog-post-item">
-                <h3><a href="/RDU-hub/blog/drc-aumon-connection.html">What Really Happens Inside a Black Hole?</a></h3>
+                <h3><a href="drc-aumon-connection.html">What Really Happens Inside a Black Hole?</a></h3>
                 <p class="post-date">August 23, 2025</p>
                 <p>A simple explanation for how Black Holes (DRCs) act as cosmic factories, recycling normal matter into the dark matter and dark energy that shape our universe...</p>
             </div>
             <div class="blog-post-item">
-                <h3><a href="/RDU-hub/blog/no-time-analogy.html">Why You Don't Need Time to Kick a Ball</a></h3>
+                <h3><a href="no-time-analogy.html">Why You Don't Need Time to Kick a Ball</a></h3>
                 <p class="post-date">August 23, 2025</p>
                 <p>An intuitive explanation of causality in a state-based, timeless universe using simple, real-world analogies like a VHS tape...</p>
             </div>
-        </div>
+            </div>
     </main>
 
 <script src="https://giscus.app/client.js"
@@ -42,7 +67,18 @@
 </script>
 
     
-    <div id="footer-placeholder"></div>
-    <script src="/RDU-hub/main.js"></script>
+    <footer>
+        <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
+        <p class="collaboration-notice">Ranked #1 on Google for "Resonant Dark Universe." Open to collaboration and inquiries at Srvapors@gmail.com.</p>
+    </footer>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
+
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
