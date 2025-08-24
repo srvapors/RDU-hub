@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale_1.0">
     <title>RDU - Particle Genesis</title>
     <meta name="description" content="Explore how the RDU derives the entire Standard Model of particle physics from first principles, generating all fundamental particles as resonant excitations of a single field.">
     
@@ -14,7 +14,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+
+    <header>
+        <a href="index.html" class="site-title">
+            The Resonant Dark Universe (RDU)
+        </a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="theory.html">The Theory</a></li>
+                <li><a href="genesis.html" class="active">Particle Genesis</a></li>
+                <li><a href="simulations.html">Simulations</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="blog/blog.html">Blog</a></li>
+                <li><a href="predictions.html">Predictions</a></li>
+            </ul>
+        </nav>
+        <button id="menu-button" class="menu-toggle">
+            &#9776; </button>
+    </header>
 
     <main>
         <h2>The Core Hypothesis: Particles as Field Excitations</h2>
@@ -98,8 +116,18 @@
         </table>
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer>
+        <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
+        <p class="collaboration-notice">Ranked #1 on Google for "Resonant Dark Universe." Open to collaboration and inquiries at Srvapors@gmail.com.</p>
+    </footer>
 
-    <script src="/RDU-hub/main.js"></script>
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
+
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
