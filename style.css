@@ -1,6 +1,6 @@
 /* General Body & Typography */
 body {
-    background-image: url('images/Blackhole01d.jpeg');
+    background-image: url('../images/Blackhole01d.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -25,18 +25,19 @@ main, footer {
     padding: 20px;
     background-color: rgba(12, 10, 26, 0.9);
     border-radius: 8px;
-    text-align: center; /* This is the new line */
+    text-align: center;
 }
-
 
 main p {
     line-height: 1.6;
     margin-bottom: 1em;
+    text-align: left;
 }
 
 main ul {
     list-style-type: square;
     padding-left: 20px;
+    text-align: left;
 }
 
 main ul li {
@@ -132,16 +133,16 @@ nav ul li a.active {
     }
 }
 
-/* Theory Page Styles */
+/* Page Specific Styles */
 main h3 {
     font-family: 'Orbitron', sans-serif;
     color: #4ec9b0;
     border-bottom: none;
     font-size: 1.4em;
     margin-top: 40px;
+    text-align: left;
 }
 
-/* Gallery Styles (Simulations Page) */
 .gallery-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -168,9 +169,9 @@ main h3 {
     border-bottom: none;
     margin-top: 0;
     color: #ffffff;
+    text-align: center;
 }
 
-/* Table Styles (Genesis Page) */
 table {
     width: 100%;
     margin-top: 40px;
@@ -204,16 +205,16 @@ table tbody tr:hover {
     background-color: #2a283a;
 }
 
-/* Publication Page Styles */
-.publication-item {
+.publication-item, .prediction-item {
     background-color: #1a182a;
     border: 1px solid #2a283a;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 25px;
+    text-align: left;
 }
 
-.publication-item h3 {
+.publication-item h3, .prediction-item h3 {
     margin-top: 0;
     border-bottom: none;
     color: #ffffff;
@@ -236,22 +237,11 @@ table tbody tr:hover {
     text-decoration: underline;
 }
 
-/* Style for inline custom symbols */
-.inline-symbol {
-    height: 1em; /* Makes the image the same height as the text */
-    vertical-align: -0.15em; /* Adjusts vertical alignment to sit nicely on the line */
-    margin: 0 0.1em; /* Gives it a little space */
+.blog-post-list {
+    text-align: left;
 }
 
-/* Collaboration Notice in Footer */
-.collaboration-notice {
-    font-size: 0.8em;
-    color: #a0a0a0; /* Lighter grey */
-    margin-top: 15px;
-}
-
-/* Prediction Page Styles */
-.prediction-item {
+.blog-post-item {
     background-color: #1a182a;
     border: 1px solid #2a283a;
     border-radius: 8px;
@@ -259,8 +249,29 @@ table tbody tr:hover {
     margin-bottom: 25px;
 }
 
-.prediction-item h3 {
-    margin-top: 0;
-    border-bottom: none;
-    color: #ffffff;
+.blog-post-item h3 a {
+    color: #8a7de0;
+    text-decoration: none;
+}
+
+.blog-post-item h3 a:hover {
+    text-decoration: underline;
+}
+
+.post-date {
+    font-style: italic;
+    color: #a0a0a0;
+    margin-top: 5px;
+}
+
+.collaboration-notice {
+    font-size: 0.8em;
+    color: #a0a0a0;
+    margin-top: 15px;
+}
+
+.inline-symbol {
+    height: 1em;
+    vertical-align: -0.15em;
+    margin: 0 0.1em;
 }
