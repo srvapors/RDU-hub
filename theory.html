@@ -5,24 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RDU - The Theory</title>
     <meta name="description" content="Learn the foundational principles of the Resonant Dark Universe (RDU), including the 'no-time' philosophy, the unified Chronos Field, and the origin of the dark sector.">
+    
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="/RDU-hub/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+
+    <header>
+        <a href="index.html" class="site-title">
+            The Resonant Dark Universe (RDU)
+        </a>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="theory.html" class="active">The Theory</a></li>
+                <li><a href="genesis.html">Particle Genesis</a></li>
+                <li><a href="simulations.html">Simulations</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="blog/blog.html">Blog</a></li>
+                <li><a href="predictions.html">Predictions</a></li>
+            </ul>
+        </nav>
+        <button id="menu-button" class="menu-toggle">
+            &#9776; </button>
+    </header>
+
     <main>
         <h2>A Timeless, State-Based Cosmos</h2>
         <p>The Resonant Dark Universe is built upon a single, foundational postulate: the universe is fundamentally timeless. In this framework, time is not a dimension but an emergent property of causality. Reality is described as a discrete, causally-ordered sequence of quantum states, and physical laws are reconceptualized as transition rules that govern the progression from one state to the next. This progression is enforced by the finite propagation speed of interactions through the Chronos Field.</p>
+
         <h2>The Chronos Field: A Unified Reality</h2>
-        <p>In the RDU, the entire dynamics of the cosmos are governed by a single scalar field: the Chronos Field (<img src="/RDU-hub/images/Chronos-symbol-1.svg" alt="Chronos Symbol" class="inline-symbol">). The energy required to create particles is drawn directly from the field's potential, which also unifies the roles of inflation and dark energy. The specific form of this potential is given by the equation:</p>
+        <p>In the RDU, the entire dynamics of the cosmos are governed by a single scalar field: the Chronos Field (<img src="images/Chronos-symbol-1.svg" alt="Chronos Symbol" class="inline-symbol">). The energy required to create particles is drawn directly from the field's potential, which also unifies the roles of inflation and dark energy. The specific form of this potential is given by the equation:</p>
         <p>$$V(\Psi) = V_{0,DE}(1 - e^{-\alpha\Psi})^2$$</p>
         <p>The values for the base potential energy density (\(V_{0,DE}\)) and the dimensionless constant (\(\alpha\)) were derived by fitting the RDU model to precision cosmological data from surveys like Planck.</p>
+        
         <h2>The Origin of the Dark Sector</h2>
         <h3>The Black Hole-DRC Identity</h3>
         <p>A foundational axiom of the RDU is the Black Hole-DRC Identity, which posits that all black holes are active Dark Resonator Cores (DRCs). These objects are the exclusive sites where matter is compressed with enough force to cause a localized return to the original Unified Field state.</p>
         <h3>The Knoechelman Mechanism</h3>
         <p>Through the Knoechelman Mechanism, DRCs perform a gravitational crunch that transforms infalling baryonic matter into a spectrum of stable, superluminal particles called Aumons. These Aumons constitute the dark sector, providing a direct, physical origin for both dark matter and dark energy from known astrophysical objects.</p>
+
         <h2>Particle Genesis as Field Excitations</h2>
         <p>The RDU proposes that the Standard Model is an emergent consequence of the Chronos Field's dynamics. All fundamental particles are hypothesized to be stable, resonant, standing-wave excitations (solitons) of the Field. A critical distinction is made between matter and force:</p>
         <ul>
@@ -30,7 +56,19 @@
             <li><b>Bosons (Force)</b> are transient, propagating waves that travel between the fermion solitons.</li>
         </ul>
     </main>
-    <div id="footer-placeholder"></div>
-    <script src="/RDU-hub/main.js"></script>
+
+    <footer>
+        <p>&copy; 2025 Joshua Knoechelman. All rights reserved.</p>
+        <p class="collaboration-notice">Ranked #1 on Google for "Resonant Dark Universe." Open to collaboration and inquiries at Srvapors@gmail.com.</p>
+    </footer>
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
+
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
