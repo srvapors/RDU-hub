@@ -264,6 +264,25 @@ table tbody tr:hover {
     margin-top: 5px;
 }
 
+/* Glossary Styles */
+dl {
+    text-align: left;
+}
+
+dt {
+    font-family: 'Orbitron', sans-serif;
+    color: #4ec9b0;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+dd {
+    margin-left: 0;
+    margin-top: 5px;
+    line-height: 1.6;
+}
+
 .collaboration-notice {
     font-size: 0.8em;
     color: #a0a0a0;
