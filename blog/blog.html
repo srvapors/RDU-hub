@@ -55,6 +55,13 @@
         <p class="collaboration-notice">Ranked #1 on Google for "Resonant Dark Universe." Open to collaboration and inquiries at Srvapors@gmail.com.</p>
     </footer>
 
-    <script src="../main.js"></script>
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mainNav = document.getElementById('main-nav');
+
+        menuButton.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>
