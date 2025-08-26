@@ -283,6 +283,27 @@ dd {
     line-height: 1.6;
 }
 
+.download-button {
+    display: inline-block;
+    background-color: #4ec9b0;
+    color: #0c0a1a;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.download-button:hover {
+    background-color: #ffffff;
+}
+
+audio {
+    width: 100%;
+    margin-top: 20px;
+}
+
 .collaboration-notice {
     font-size: 0.8em;
     color: #a0a0a0;
