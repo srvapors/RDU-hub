@@ -315,3 +315,19 @@ audio {
     vertical-align: -0.15em;
     margin: 0 0.1em;
 }
+
+/* Link styled as a button */
+.button-link {
+    display: inline-block;
+    background-color: #4ec9b0;
+    color: #0c0a1a;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.button-link:hover {
+    background-color: #80cbc4;
+}
