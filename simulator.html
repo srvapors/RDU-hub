@@ -164,8 +164,15 @@
             const phase = parseFloat(sliders.phase.value);
             const layers = parseInt(sliders.layers.value);
             const coupling = parseFloat(sliders.coupling.value);
+            const velocity = parseFloat(sliders.velocity.value);
+            
             const omega = freq * (2 * Math.PI / 6.582e-16);
-            const energyDensity = 0.5 * Math.pow(amp * coupling, 2) * Math.pow(omega, 2) * layers;
+            
+            // Calculate base energy, then apply the velocity factor
+            const baseEnergyDensity = 0.5 * Math.pow(amp * coupling, 2) * Math.pow(omega, 2) * layers;
+            const velocityFactor = 1 + Math.pow(velocity, 2);
+            const energyDensity = baseEnergyDensity * velocityFactor;
+
             const thresholdRatio = (energyDensity / V0_DE_TARGET) * 100;
             const phaseOptimality = 1 - Math.abs(phase - 90) / 90;
             const isStable = thresholdRatio >= 100 && phaseOptimality > 0.9;
@@ -226,7 +233,6 @@
             updateStatus();
         }
         
-        // *** FIX: Add event listeners to all sliders ***
         Object.values(sliders).forEach(slider => {
             slider.addEventListener('input', updateSimulation);
         });
