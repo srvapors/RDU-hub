@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDU FTL Warp Drive Simulator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c1445, #1a237e);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00bcd4;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #b0bec5;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            height: 80vh;
+        }
+        
+        .controls {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .visualization {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .control-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #00bcd4;
+        }
+        
+        .control-group h3 {
+            margin: 0 0 15px 0;
+            color: #00bcd4;
+            font-size: 16px;
+        }
+        
+        .slider-container {
+            margin-bottom: 15px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .slider-value {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00bcd4, #0097a7);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00bcd4, #0097a7);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+        }
+        
+        .status-panel {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .status-value {
+            font-weight: bold;
+        }
+        
+        .status-stable { color: #4caf50; }
+        .status-unstable { color: #ff5722; }
+        .status-critical { color: #f44336; animation: pulse 1s infinite; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(45deg, #00bcd4, #0097a7);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: linear-gradient(45deg, #0097a7, #00695c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #ffb74d;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00bcd4, #4caf50);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .test-status {
+            text-align: center;
+            font-weight: bold;
+            color: #00bcd4;
+            margin-bottom: 15px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .result-value {
+            font-weight: bold;
+        }
+        
+        .result-pass { color: #4caf50; }
+        .result-fail { color: #f44336; }
+        .result-warning { color: #ff9800; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RDU FTL Warp Drive Simulator</h1>
+        <p class="subtitle">Interactive Chronos Field Manipulation</p>
+        
+        <div class="main-grid">
+            <div class="controls">
+                <div class="control-group">
+                    <h3>Emitter Parameters</h3>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Frequency (ω)</span>
+                            <span class="slider-value" id="freq-value">1.0e-12 GeV</span>
+                        </div>
+                        <input type="range" id="frequency" min="0.1" max="10" step="0.1" value="1.0">
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Amplitude (A)</span>
+                            <span class="slider-value" id="amp-value">7.04e-12 GeV</span>
+                        </div>
+                        <input type="range" id="amplitude" min="1" max="50" step="0.5" value="7.04">
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Phase Shift</span>
+                            <span class="slider-value" id="phase-value">90°</span>
+                        </div>
+                        <input type="range" id="phase" min="0" max="180" step="5" value="90">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Field Configuration</h3>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Shell Radius</span>
+                            <span class="slider-value" id="radius-value">50 units</span>
+                        </div>
+                        <input type="range" id="radius" min="20" max="100" step="5" value="50">
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Layer Count</span>
+                            <span class="slider-value" id="layers-value">1</span>
+                        </div>
+                        <input type="range" id="layers" min="1" max="5" step="1" value="1">
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Coupling Strength</span>
+                            <span class="slider-value" id="coupling-value">1.0</span>
+                        </div>
+                        <input type="range" id="coupling" min="0.1" max="3.0" step="0.1" value="1.0">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Test Parameters</h3>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>External Gravity</span>
+                            <span class="slider-value" id="gravity-value">0.5</span>
+                        </div>
+                        <input type="range" id="gravity" min="0" max="2.0" step="0.1" value="0.5">
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Probe Velocity</span>
+                            <span class="slider-value" id="velocity-value">0.1c</span>
+                        </div>
+                        <input type="range" id="velocity" min="0" max="2.0" step="0.1" value="0.1">
+                    </div>
+                </div>
+                
+                <div class="status-panel">
+                    <h3 style="margin-top: 0; color: #00bcd4;">Bubble Status</h3>
+                    <div class="status-item">
+                        <span>Energy Density:</span>
+                        <span class="status-value" id="energy-density">0.00e-47 GeV⁴</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Threshold Ratio:</span>
+                        <span class="status-value" id="threshold-ratio">0.0%</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Stability:</span>
+                        <span class="status-value status-unstable" id="stability">Unstable</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Causal Isolation:</span>
+                        <span class="status-value" id="causal-isolation">No</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Gravitational Shield:</span>
+                        <span class="status-value" id="grav-shield">0%</span>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button onclick="resetToDefaults()">Reset</button>
+                    <button onclick="optimizeForFTL()">Optimize</button>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Test Sequence</h3>
+                    <button id="runTestBtn" onclick="runTestSequence()" style="width: 100%; margin-bottom: 10px; background: linear-gradient(45deg, #4caf50, #388e3c);">
+                        RUN TEST SEQUENCE
+                    </button>
+                    <div class="test-progress" id="testProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="test-status" id="testStatus">Initializing...</div>
+                    </div>
+                    <div class="test-results" id="testResults" style="display: none;">
+                        <div class="result-item">
+                            <span>Shell Formation:</span>
+                            <span id="shellResult" class="result-value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Energy Stability:</span>
+                            <span id="energyResult" class="result-value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Causal Isolation:</span>
+                            <span id="causalResult" class="result-value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Gravity Shield:</span>
+                            <span id="gravityResult" class="result-value">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>FTL Capability:</span>
+                            <span id="ftlResult" class="result-value">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    ⚠️ This is a theoretical simulation based on the RDU framework. Energy calculations are extrapolated from the documented equations.
+                </div>
+            </div>
+            
+            <div class="visualization">
+                <canvas id="warpCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants from RDU framework
+        const V0_DE_TARGET = 2.4800e-47; // GeV^4
+        const THRESHOLD_PRODUCT = 7.04e-24; // GeV^2
+        const SPEED_OF_LIGHT = 299792458; // m/s
+        
+        // Canvas setup
+        const canvas = document.getElementById('warpCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // State variables
+        let animationFrame = 0;
+        let isStable = false;
+        let energyDensity = 0;
+        let thresholdRatio = 0;
+        let testRunning = false;
+        let testData = {
+            shellStability: [],
+            energyReadings: [],
+            causalMeasurements: [],
+            gravityShield: []
+        };
+        
+        // Slider elements
+        const sliders = {
+            frequency: document.getElementById('frequency'),
+            amplitude: document.getElementById('amplitude'),
+            phase: document.getElementById('phase'),
+            radius: document.getElementById('radius'),
+            layers: document.getElementById('layers'),
+            coupling: document.getElementById('coupling'),
+            gravity: document.getElementById('gravity'),
+            velocity: document.getElementById('velocity')
+        };
+        
+        // Value display elements
+        const valueDisplays = {
+            'freq-value': 'frequency',
+            'amp-value': 'amplitude', 
+            'phase-value': 'phase',
+            'radius-value': 'radius',
+            'layers-value': 'layers',
+            'coupling-value': 'coupling',
+            'gravity-value': 'gravity',
+            'velocity-value': 'velocity'
+        };
+        
+        // Status elements
+        const statusElements = {
+            energyDensity: document.getElementById('energy-density'),
+            thresholdRatio: document.getElementById('threshold-ratio'),
+            stability: document.getElementById('stability'),
+            causalIsolation: document.getElementById('causal-isolation'),
+            gravShield: document.getElementById('grav-shield')
+        };
+        
+        // Add event listeners to all sliders
+        Object.keys(sliders).forEach(key => {
+            sliders[key].addEventListener('input', updateSimulation);
+        });
+        
+        function updateSliderDisplays() {
+            const freq = parseFloat(sliders.frequency.value);
+            const amp = parseFloat(sliders.amplitude.value);
+            const phase = parseFloat(sliders.phase.value);
+            const radius = parseFloat(sliders.radius.value);
+            const layers = parseInt(sliders.layers.value);
+            const coupling = parseFloat(sliders.coupling.value);
+            const gravity = parseFloat(sliders.gravity.value);
+            const velocity = parseFloat(sliders.velocity.value);
+            
+            document.getElementById('freq-value').textContent = `${freq.toFixed(1)}e-12 GeV`;
+            document.getElementById('amp-value').textContent = `${amp.toFixed(2)}e-12 GeV`;
+            document.getElementById('phase-value').textContent = `${phase}°`;
+            document.getElementById('radius-value').textContent = `${radius} units`;
+            document.getElementById('layers-value').textContent = layers.toString();
+            document.getElementById('coupling-value').textContent = coupling.toFixed(1);
+            document.getElementById('gravity-value').textContent = gravity.toFixed(1);
+            document.getElementById('velocity-value').textContent = `${velocity.toFixed(1)}c`;
+        }
+        
+        function calculatePhysics() {
+            const freq = parseFloat(sliders.frequency.value) * 1e-12;
+            const amp = parseFloat(sliders.amplitude.value) * 1e-12;
+            const phase = parseFloat(sliders.phase.value);
+            const radius = parseFloat(sliders.radius.value);
+            const layers = parseInt(sliders.layers.value);
+            const coupling = parseFloat(sliders.coupling.value);
+            
+            // Calculate energy density using RDU equations
+            const omega = freq * 6.582e-16; // Convert to angular frequency
+            energyDensity = 0.5 * Math.pow(amp * coupling, 2) * Math.pow(omega, 2) * layers;
+            
+            // Calculate threshold ratio
+            thresholdRatio = (energyDensity / V0_DE_TARGET) * 100;
+            
+            // Determine stability based on phase alignment and threshold
+            const phaseOptimality = 1 - Math.abs(phase - 90) / 90;
+            const thresholdMet = energyDensity >= V0_DE_TARGET * 0.8;
+            isStable = thresholdMet && phaseOptimality > 0.8;
+            
+            return {
+                energyDensity,
+                thresholdRatio,
+                isStable,
+                phaseOptimality,
+                thresholdMet
+            };
+        }
+        
+        function updateStatus() {
+            const physics = calculatePhysics();
+            const gravity = parseFloat(sliders.gravity.value);
+            
+            // Update status displays
+            statusElements.energyDensity.textContent = `${physics.energyDensity.toExponential(2)} GeV⁴`;
+            statusElements.thresholdRatio.textContent = `${physics.thresholdRatio.toFixed(1)}%`;
+            
+            // Update stability
+            if (physics.isStable) {
+                statusElements.stability.textContent = 'Stable';
+                statusElements.stability.className = 'status-value status-stable';
+            } else if (physics.thresholdRatio > 50) {
+                statusElements.stability.textContent = 'Critical';
+                statusElements.stability.className = 'status-value status-critical';
+            } else {
+                statusElements.stability.textContent = 'Unstable';
+                statusElements.stability.className = 'status-value status-unstable';
+            }
+            
+            // Update causal isolation
+            statusElements.causalIsolation.textContent = physics.thresholdRatio >= 100 ? 'Yes' : 'No';
+            statusElements.causalIsolation.className = physics.thresholdRatio >= 100 ? 'status-stable' : 'status-unstable';
+            
+            // Update gravitational shielding
+            const shieldEfficiency = Math.min(100, physics.thresholdRatio * 0.8);
+            statusElements.gravShield.textContent = `${shieldEfficiency.toFixed(0)}%`;
+            statusElements.gravShield.className = shieldEfficiency > 80 ? 'status-stable' : 
+                                                  shieldEfficiency > 50 ? 'status-critical' : 'status-unstable';
+        }
+        
+        function drawVisualization() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            
+            // Clear canvas with starfield background
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(width, height));
+            gradient.addColorStop(0, '#0c1445');
+            gradient.addColorStop(1, '#000814');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Draw stars
+            ctx.fillStyle = '#ffffff';
+            for (let i = 0; i < 100; i++) {
+                const x = Math.random() * width;
+                const y = Math.random() * height;
+                const size = Math.random() * 2;
+                ctx.globalAlpha = Math.random() * 0.8 + 0.2;
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+            
+            // Get current parameters
+            const radius = parseFloat(sliders.radius.value);
+            const layers = parseInt(sliders.layers.value);
+            const phase = parseFloat(sliders.phase.value);
+            const gravity = parseFloat(sliders.gravity.value);
+            const physics = calculatePhysics();
+            
+            // Draw external gravitational source if present
+            if (gravity > 0) {
+                const gravX = centerX + 200;
+                const gravY = centerY - 150;
+                const gravRadius = 20 + gravity * 10;
+                
+                const gravGradient = ctx.createRadialGradient(gravX, gravY, 0, gravX, gravY, gravRadius);
+                gravGradient.addColorStop(0, 'rgba(255, 100, 100, 0.8)');
+                gravGradient.addColorStop(1, 'rgba(100, 0, 0, 0.2)');
+                ctx.fillStyle = gravGradient;
+                ctx.beginPath();
+                ctx.arc(gravX, gravY, gravRadius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw gravitational field lines
+                if (!physics.isStable || physics.thresholdRatio < 80) {
+                    ctx.strokeStyle = 'rgba(255, 100, 100, 0.3)';
+                    ctx.lineWidth = 1;
+                    for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 8) {
+                        ctx.beginPath();
+                        ctx.moveTo(gravX, gravY);
+                        const endX = centerX + Math.cos(angle) * 150;
+                        const endY = centerY + Math.sin(angle) * 150;
+                        ctx.lineTo(endX, endY);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            // Draw warp bubble layers
+            for (let layer = 0; layer < layers; layer++) {
+                const layerRadius = (radius + layer * 15) * (Math.min(width, height) / 400);
+                const time = animationFrame * 0.05;
+                
+                // Primary wave (lattice)
+                const latticeIntensity = Math.sin(time + layer * 0.5) * 0.5 + 0.5;
+                const latticeAlpha = physics.isStable ? 0.6 : 0.3;
+                
+                ctx.strokeStyle = `rgba(0, 188, 212, ${latticeAlpha * latticeIntensity})`;
+                ctx.lineWidth = physics.isStable ? 3 : 2;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, layerRadius, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Infill wave (phase-shifted)
+                if (Math.abs(phase - 90) < 30) { // Show infill only when phase is near optimal
+                    const infillTime = time + (phase * Math.PI / 180);
+                    const infillIntensity = Math.sin(infillTime + layer * 0.5) * 0.5 + 0.5;
+                    
+                    ctx.strokeStyle = `rgba(76, 255, 0, ${latticeAlpha * infillIntensity * 0.7})`;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, layerRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+                
+                // Energy density visualization
+                if (physics.thresholdRatio > 20) {
+                    const energyGradient = ctx.createRadialGradient(centerX, centerY, layerRadius - 5, centerX, centerY, layerRadius + 5);
+                    energyGradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
+                    energyGradient.addColorStop(0.5, `rgba(0, 255, 255, ${Math.min(0.4, physics.thresholdRatio / 250)})`);
+                    energyGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    
+                    ctx.strokeStyle = energyGradient;
+                    ctx.lineWidth = 8;
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, layerRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            }
+            
+            // Draw test probe
+            const probeRadius = 8;
+            const probeColor = physics.isStable ? '#4caf50' : '#ff9800';
+            
+            ctx.fillStyle = probeColor;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, probeRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw probe shield effect if stable
+            if (physics.isStable && physics.thresholdRatio > 80) {
+                const shieldGradient = ctx.createRadialGradient(centerX, centerY, probeRadius, centerX, centerY, probeRadius + 15);
+                shieldGradient.addColorStop(0, 'rgba(76, 255, 0, 0.4)');
+                shieldGradient.addColorStop(1, 'rgba(76, 255, 0, 0)');
+                
+                ctx.fillStyle = shieldGradient;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, probeRadius + 15, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Draw field strength indicator
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '14px monospace';
+            ctx.fillText(`Field Strength: ${physics.thresholdRatio.toFixed(1)}%`, 20, 30);
+            ctx.fillText(`Status: ${physics.isStable ? 'STABLE BUBBLE' : 'FORMING...'}`, 20, 50);
+            
+            if (physics.thresholdRatio >= 100) {
+                ctx.fillStyle = '#4caf50';
+                ctx.font = 'bold 16px monospace';
+                ctx.fillText('FTL CAPABLE', 20, 80);
+            }
+        }
+        
+        function updateSimulation() {
+            updateSliderDisplays();
+            updateStatus();
+            drawVisualization();
+        }
+        
+        function animate() {
+            animationFrame++;
+            drawVisualization();
+            requestAnimationFrame(animate);
+        }
+        
+        function resetToDefaults() {
+            sliders.frequency.value = 1.0;
+            sliders.amplitude.value = 7.04;
+            sliders.phase.value = 90;
+            sliders.radius.value = 50;
+            sliders.layers.value = 1;
+            sliders.coupling.value = 1.0;
+            sliders.gravity.value = 0.5;
+            sliders.velocity.value = 0.1;
+            updateSimulation();
+        }
+        
+        function optimizeForFTL() {
+            sliders.frequency.value = 2.5;
+            sliders.amplitude.value = 15.0;
+            sliders.phase.value = 90;
+            sliders.radius.value = 45;
+            sliders.layers.value = 3;
+            sliders.coupling.value = 2.2;
+            sliders.gravity.value = 1.0;
+            sliders.velocity.value = 1.5;
+            updateSimulation();
+        }
+        
+        async function runTestSequence() {
+            if (testRunning) return;
+            
+            testRunning = true;
+            const testBtn = document.getElementById('runTestBtn');
+            const progressDiv = document.getElementById('testProgress');
+            const resultsDiv = document.getElementById('testResults');
+            const progressFill = document.getElementById('progressFill');
+            const testStatus = document.getElementById('testStatus');
+            
+            // Reset and show progress
+            testBtn.disabled = true;
+            testBtn.style.background = '#666';
+            progressDiv.style.display = 'block';
+            resultsDiv.style.display = 'none';
+            
+            // Clear previous test data
+            testData = {
+                shellStability: [],
+                energyReadings: [],
+                causalMeasurements: [],
+                gravityShield: []
+            };
+            
+            const testPhases = [
+                { name: 'Initializing Emitter Array', duration: 800 },
+                { name: 'Shell Formation Test', duration: 1500 },
+                { name: 'Energy Density Measurement', duration: 1200 },
+                { name: 'Causal Isolation Test', duration: 2000 },
+                { name: 'Gravitational Shield Test', duration: 1500 },
+                { name: 'FTL Capability Assessment', duration: 1000 }
+            ];
+            
+            let totalProgress = 0;
+            const totalDuration = testPhases.reduce((sum, phase) => sum + phase.duration, 0);
+            
+            for (let i = 0; i < testPhases.length; i++) {
+                const phase = testPhases[i];
+                testStatus.textContent = phase.name;
+                
+                // Simulate test phase with data collection
+                await simulateTestPhase(phase.name, phase.duration, (progress) => {
+                    const phaseProgress = (progress / 100) * (phase.duration / totalDuration) * 100;
+                    progressFill.style.width = `${totalProgress + phaseProgress}%`;
+                });
+                
+                totalProgress += (phase.duration / totalDuration) * 100;
+            }
+            
+            // Complete test
+            progressFill.style.width = '100%';
+            testStatus.textContent = 'Test Complete - Analyzing Results';
+            
+            setTimeout(() => {
+                displayTestResults();
+                progressDiv.style.display = 'none';
+                resultsDiv.style.display = 'block';
+                testBtn.disabled = false;
+                testBtn.style.background = 'linear-gradient(45deg, #4caf50, #388e3c)';
+                testRunning = false;
+            }, 1000);
+        }
+        
+        async function simulateTestPhase(phaseName, duration, progressCallback) {
+            return new Promise(resolve => {
+                let elapsed = 0;
+                const interval = setInterval(() => {
+                    elapsed += 50;
+                    const progress = (elapsed / duration) * 100;
+                    
+                    // Collect test data based on current parameters
+                    collectTestData(phaseName);
+                    
+                    progressCallback(Math.min(100, progress));
+                    
+                    if (elapsed >= duration) {
+                        clearInterval(interval);
+                        resolve();
+                    }
+                }, 50);
+            });
+        }
+        
+        function collectTestData(phaseName) {
+            const physics = calculatePhysics();
+            const gravity = parseFloat(sliders.gravity.value);
+            
+            switch (phaseName) {
+                case 'Shell Formation Test':
+                    // Measure shell stability over time
+                    const stability = physics.isStable ? 1.0 : Math.random() * 0.6;
+                    testData.shellStability.push(stability);
+                    break;
+                    
+                case 'Energy Density Measurement':
+                    // Record energy density readings
+                    const noise = (Math.random() - 0.5) * 0.1;
+                    testData.energyReadings.push(physics.energyDensity * (1 + noise));
+                    break;
+                    
+                case 'Causal Isolation Test':
+                    // Measure causal decoupling effectiveness
+                    const isolation = physics.thresholdRatio >= 100 ? 
+                        0.95 + Math.random() * 0.05 : 
+                        Math.min(0.9, physics.thresholdRatio / 120);
+                    testData.causalMeasurements.push(isolation);
+                    break;
+                    
+                case 'Gravitational Shield Test':
+                    // Test gravitational shielding effectiveness
+                    const baseShield = Math.min(100, physics.thresholdRatio * 0.8) / 100;
+                    const shieldNoise = (Math.random() - 0.5) * 0.1;
+                    testData.gravityShield.push(Math.max(0, baseShield + shieldNoise));
+                    break;
+            }
+        }
+        
+        function displayTestResults() {
+            const physics = calculatePhysics();
+            
+            // Analyze shell formation
+            const avgStability = testData.shellStability.reduce((a, b) => a + b, 0) / testData.shellStability.length;
+            const shellResult = document.getElementById('shellResult');
+            if (avgStability > 0.8) {
+                shellResult.textContent = 'PASS - Stable';
+                shellResult.className = 'result-value result-pass';
+            } else if (avgStability > 0.5) {
+                shellResult.textContent = 'PARTIAL - Unstable';
+                shellResult.className = 'result-value result-warning';
+            } else {
+                shellResult.textContent = 'FAIL - Collapse';
+                shellResult.className = 'result-value result-fail';
+            }
+            
+            // Analyze energy stability
+            const energyVariance = calculateVariance(testData.energyReadings);
+            const energyResult = document.getElementById('energyResult');
+            if (energyVariance < physics.energyDensity * 0.1) {
+                energyResult.textContent = 'PASS - Stable';
+                energyResult.className = 'result-value result-pass';
+            } else if (energyVariance < physics.energyDensity * 0.3) {
+                energyResult.textContent = 'WARNING - Fluctuating';
+                energyResult.className = 'result-value result-warning';
+            } else {
+                energyResult.textContent = 'FAIL - Unstable';
+                energyResult.className = 'result-value result-fail';
+            }
+            
+            // Analyze causal isolation
+            const avgIsolation = testData.causalMeasurements.reduce((a, b) => a + b, 0) / testData.causalMeasurements.length;
+            const causalResult = document.getElementById('causalResult');
+            if (avgIsolation > 0.9) {
+                causalResult.textContent = 'PASS - Isolated';
+                causalResult.className = 'result-value result-pass';
+            } else if (avgIsolation > 0.7) {
+                causalResult.textContent = 'PARTIAL - Leaking';
+                causalResult.className = 'result-value result-warning';
+            } else {
+                causalResult.textContent = 'FAIL - No Isolation';
+                causalResult.className = 'result-value result-fail';
+            }
+            
+            // Analyze gravity shielding
+            const avgShield = testData.gravityShield.reduce((a, b) => a + b, 0) / testData.gravityShield.length;
+            const gravityResult = document.getElementById('gravityResult');
+            if (avgShield > 0.8) {
+                gravityResult.textContent = `PASS - ${(avgShield * 100).toFixed(0)}%`;
+                gravityResult.className = 'result-value result-pass';
+            } else if (avgShield > 0.5) {
+                gravityResult.textContent = `PARTIAL - ${(avgShield * 100).toFixed(0)}%`;
+                gravityResult.className = 'result-value result-warning';
+            } else {
+                gravityResult.textContent = `FAIL - ${(avgShield * 100).toFixed(0)}%`;
+                gravityResult.className = 'result-value result-fail';
+            }
+            
+            // Overall FTL capability assessment
+            const ftlResult = document.getElementById('ftlResult');
+            const allPass = avgStability > 0.8 && energyVariance < physics.energyDensity * 0.1 && 
+                           avgIsolation > 0.9 && avgShield > 0.8;
+            const mostPass = (avgStability > 0.5) + (energyVariance < physics.energyDensity * 0.3) + 
+                            (avgIsolation > 0.7) + (avgShield > 0.5) >= 3;
+            
+            if (allPass) {
+                ftlResult.textContent = 'PASS - FTL Ready';
+                ftlResult.className = 'result-value result-pass';
+            } else if (mostPass) {
+                ftlResult.textContent = 'PARTIAL - Needs Tuning';
+                ftlResult.className = 'result-value result-warning';
+            } else {
+                ftlResult.textContent = 'FAIL - Not Viable';
+                ftlResult.className = 'result-value result-fail';
+            }
+        }
+        
+        function calculateVariance(arr) {
+            const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+            return Math.sqrt(arr.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / arr.length);
+        }
+        
+        // Initialize
+        updateSimulation();
+        animate();
+    </script>
+</body>
+</html>
