@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RDU FTL Warp Drive Simulator</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #0c1445, #1a237e); color: #ffffff; margin: 0; padding: 20px; min-height: 100vh; }
-        .container { max-width: 1400px; margin: 0 auto; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #0c1445, #1a237e); color: #ffffff; margin: 0; padding: 0; min-height: 100vh; }
+        .container { max-width: 1400px; margin: 20px auto; background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         h1 { text-align: center; color: #00bcd4; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0, 188, 212, 0.5); }
         .subtitle { text-align: center; color: #b0bec5; margin-bottom: 30px; font-style: italic; }
         .main-grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; height: 80vh; }
@@ -224,6 +225,11 @@
             updateSliderDisplays();
             updateStatus();
         }
+        
+        // *** FIX: Add event listeners to all sliders ***
+        Object.values(sliders).forEach(slider => {
+            slider.addEventListener('input', updateSimulation);
+        });
 
         function resetToDefaults() {
             sliders.frequency.value = 1.0; sliders.amplitude.value = 7.04; sliders.phase.value = 90;
@@ -279,12 +285,11 @@
         }
 
         function displayTestResults() {
-            const avgStability = testData.shellStability.reduce((a, b) => a + b, 0) / testData.shellStability.length;
+            const avgStability = testData.shellStability.length > 0 ? testData.shellStability.reduce((a, b) => a + b, 0) / testData.shellStability.length : 0;
             const shellResult = document.getElementById('shellResult');
             if(avgStability > 0.8) { shellResult.textContent = 'PASS'; shellResult.className = 'result-value result-pass'; }
             else { shellResult.textContent = 'FAIL'; shellResult.className = 'result-value result-fail'; }
             
-            // Simplified results based on final state for clarity
             const { isStable, thresholdRatio } = calculatePhysics();
             document.getElementById('energyResult').textContent = isStable ? 'PASS' : 'FAIL';
             document.getElementById('energyResult').className = `result-value ${isStable ? 'result-pass' : 'result-fail'}`;
@@ -293,7 +298,7 @@
             document.getElementById('gravityResult').textContent = thresholdRatio >= 80 ? 'PASS' : 'FAIL';
             document.getElementById('gravityResult').className = `result-value ${thresholdRatio >= 80 ? 'result-pass' : 'result-fail'}`;
             document.getElementById('ftlResult').textContent = isStable && thresholdRatio >= 100 ? 'PASS' : 'FAIL';
-            document.getElementById('ftlResult').className = `result-value ${isStable && thresholdRatio >= 100 ? 'result-pass' : 'result-fail'}`;
+            document.getElementById('ftlResult').className = `result-value ${isStable && thresholdRatio >= 100 ? 'result-pass' : 'fail'}`;
         }
         
         resizeCanvas();
