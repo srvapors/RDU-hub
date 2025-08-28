@@ -87,8 +87,8 @@
                         <input type="range" id="gravity" min="0" max="2.0" step="0.1" value="0.5">
                     </div>
                     <div class="slider-container">
-                        <div class="slider-label"><span>Probe Velocity</span><span class="slider-value" id="velocity-value">0.1c</span></div>
-                        <input type="range" id="velocity" min="0" max="2.0" step="0.1" value="0.1">
+                        <div class="slider-label"><span>Warp Factor</span><span class="slider-value" id="warp-value">Warp 1.0</span></div>
+                        <input type="range" id="warpFactor" min="0.1" max="10" step="0.1" value="1.0">
                     </div>
                 </div>
                 <div class="status-panel">
@@ -96,6 +96,7 @@
                     <div class="status-item"><span>Energy Density:</span><span class="status-value" id="energy-density">0.00e-47 GeV⁴</span></div>
                     <div class="status-item"><span>Threshold Ratio:</span><span class="status-value" id="threshold-ratio">0.0%</span></div>
                     <div class="status-item"><span>Stability:</span><span class="status-value status-unstable" id="stability">Unstable</span></div>
+                    <div class="status-item"><span>Effective Velocity:</span><span class="status-value" id="eff-velocity">1.00c</span></div>
                     <div class="status-item"><span>Causal Isolation:</span><span class="status-value" id="causal-isolation">No</span></div>
                     <div class="status-item"><span>Gravitational Shield:</span><span class="status-value" id="grav-shield">0%</span></div>
                 </div>
@@ -133,8 +134,24 @@
         // DOM Elements
         const canvas = document.getElementById('warpCanvas');
         const ctx = canvas.getContext('2d');
-        const sliders = { frequency: document.getElementById('frequency'), amplitude: document.getElementById('amplitude'), phase: document.getElementById('phase'), radius: document.getElementById('radius'), layers: document.getElementById('layers'), coupling: document.getElementById('coupling'), gravity: document.getElementById('gravity'), velocity: document.getElementById('velocity') };
-        const statusElements = { energyDensity: document.getElementById('energy-density'), thresholdRatio: document.getElementById('threshold-ratio'), stability: document.getElementById('stability'), causalIsolation: document.getElementById('causal-isolation'), gravShield: document.getElementById('grav-shield') };
+        const sliders = {
+            frequency: document.getElementById('frequency'),
+            amplitude: document.getElementById('amplitude'),
+            phase: document.getElementById('phase'),
+            radius: document.getElementById('radius'),
+            layers: document.getElementById('layers'),
+            coupling: document.getElementById('coupling'),
+            gravity: document.getElementById('gravity'),
+            warpFactor: document.getElementById('warpFactor')
+        };
+        const statusElements = {
+            energyDensity: document.getElementById('energy-density'),
+            thresholdRatio: document.getElementById('threshold-ratio'),
+            stability: document.getElementById('stability'),
+            causalIsolation: document.getElementById('causal-isolation'),
+            gravShield: document.getElementById('grav-shield'),
+            effVelocity: document.getElementById('eff-velocity')
+        };
 
         // State variables
         let animationFrame = 0;
@@ -155,7 +172,9 @@
             document.getElementById('layers-value').textContent = parseInt(sliders.layers.value);
             document.getElementById('coupling-value').textContent = parseFloat(sliders.coupling.value).toFixed(1);
             document.getElementById('gravity-value').textContent = parseFloat(sliders.gravity.value).toFixed(1);
-            document.getElementById('velocity-value').textContent = `${parseFloat(sliders.velocity.value).toFixed(1)}c`;
+            
+            const warp = parseFloat(sliders.warpFactor.value);
+            document.getElementById('warp-value').textContent = `Warp ${warp.toFixed(1)}`;
         }
 
         function calculatePhysics() {
@@ -164,11 +183,13 @@
             const phase = parseFloat(sliders.phase.value);
             const layers = parseInt(sliders.layers.value);
             const coupling = parseFloat(sliders.coupling.value);
-            const velocity = parseFloat(sliders.velocity.value);
-            
+            const warpFactor = parseFloat(sliders.warpFactor.value);
+
+            // Calculate velocity from warp factor using TNG formula
+            const velocity = (warpFactor < 1) ? warpFactor : Math.pow(warpFactor, 10 / 3);
+
             const omega = freq * (2 * Math.PI / 6.582e-16);
             
-            // Calculate base energy, then apply the velocity factor
             const baseEnergyDensity = 0.5 * Math.pow(amp * coupling, 2) * Math.pow(omega, 2) * layers;
             const velocityFactor = 1 + Math.pow(velocity, 2);
             const energyDensity = baseEnergyDensity * velocityFactor;
@@ -176,15 +197,18 @@
             const thresholdRatio = (energyDensity / V0_DE_TARGET) * 100;
             const phaseOptimality = 1 - Math.abs(phase - 90) / 90;
             const isStable = thresholdRatio >= 100 && phaseOptimality > 0.9;
-            return { energyDensity, thresholdRatio, isStable };
+            
+            return { energyDensity, thresholdRatio, isStable, velocity };
         }
 
         function updateStatus() {
-            const { energyDensity, thresholdRatio, isStable } = calculatePhysics();
+            const { energyDensity, thresholdRatio, isStable, velocity } = calculatePhysics();
             statusElements.energyDensity.textContent = `${energyDensity.toExponential(2)} GeV⁴`;
             statusElements.thresholdRatio.textContent = `${thresholdRatio.toFixed(1)}%`;
             statusElements.causalIsolation.textContent = thresholdRatio >= 100 ? 'Yes' : 'No';
             statusElements.gravShield.textContent = `${Math.min(100, thresholdRatio * 0.8).toFixed(0)}%`;
+            statusElements.effVelocity.textContent = `${velocity.toFixed(2)}c`;
+
             if (isStable) {
                 statusElements.stability.textContent = 'Stable';
                 statusElements.stability.className = 'status-value status-stable';
@@ -238,16 +262,26 @@
         });
 
         function resetToDefaults() {
-            sliders.frequency.value = 1.0; sliders.amplitude.value = 7.04; sliders.phase.value = 90;
-            sliders.radius.value = 50; sliders.layers.value = 1; sliders.coupling.value = 1.0;
-            sliders.gravity.value = 0.5; sliders.velocity.value = 0.1;
+            sliders.frequency.value = 1.0;
+            sliders.amplitude.value = 7.04;
+            sliders.phase.value = 90;
+            sliders.radius.value = 50;
+            sliders.layers.value = 1;
+            sliders.coupling.value = 1.0;
+            sliders.gravity.value = 0.5;
+            sliders.warpFactor.value = 1.0;
             updateSimulation();
         }
 
         function optimizeForFTL() {
-            sliders.frequency.value = 2.5; sliders.amplitude.value = 15.0; sliders.phase.value = 90;
-            sliders.radius.value = 45; sliders.layers.value = 3; sliders.coupling.value = 2.2;
-            sliders.gravity.value = 1.0; sliders.velocity.value = 1.5;
+            sliders.frequency.value = 2.5;
+            sliders.amplitude.value = 25.0;
+            sliders.phase.value = 90;
+            sliders.radius.value = 45;
+            sliders.layers.value = 3;
+            sliders.coupling.value = 2.2;
+            sliders.gravity.value = 1.0;
+            sliders.warpFactor.value = 9.5;
             updateSimulation();
         }
 
