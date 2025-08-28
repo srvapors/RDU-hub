@@ -331,3 +331,13 @@ audio {
 .button-link:hover {
     background-color: #80cbc4;
 }
+
+/* Constrains image width for blog posts */
+.blog-image {
+    max-width: 70%; /* Adjust this percentage as you like */
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 4px;
+    border: 1px solid #444; /* Optional: adds a subtle border */
+}
